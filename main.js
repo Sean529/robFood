@@ -1,3 +1,6 @@
+const appName = "盒马";
+launchApp(appName);
+sleep(3000);
 auto.waitFor()
 // 点击按钮
 const clickSettle = () => {
@@ -25,6 +28,7 @@ const start = () => {
 		start()
 	} else if (hasText('提交订单')) {
 		className("android.widget.TextView").text("提交订单").findOne().parent().click()
+		musicNotify()
 		sleep(1000)
 		start()
 	} else {
