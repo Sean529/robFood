@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vertical>
+	<img w="*" h="0" layout_weight="1" src="res/start.png" scaleType="fitXY" />
+	<frame gravity="center" height="180">
+		<horizontal gravity="center">
+			<text text="抢菜助手" w="auto" h="auto" textSize="24" textColor="#212121" textStyle="bold" layout_gravity="center" margin="16" />
+		</horizontal>
+	</frame>
+</vertical>

@@ -1,22 +1,25 @@
 {
-    "assets": [],
-    "encryptLevel": 0,
-    "useFeatures": [],
-    "launchConfig": {
-      "displaySplash": true,
-      "hideLogs": false,
-      "splashText": "Powered by Auto.js Pro",
-      "stableMode": false
-    },
-    "main": "main.js",
-    "name": "My Project",
-    "optimization": {
-      "removeOpenCv": false,
-      "unusedResources": false
-    },
-    "packageName": "org.example.my_project",
-    "scripts": {},
-    "versionCode": 1,
-    "versionName": "1.0.0",
-    "ignore": ["build", "node_modules"]
-  }
+  "assets": [],
+  "encryptLevel": 1,
+  "useFeatures": [],
+  "launchConfig": {
+    "displaySplash": true,
+    "hideLogs": true,
+    "splashIcon": "res/logo.png",
+    "splashText": "Powered by AT",
+    "stableMode": true,
+    "splashLayoutXml": "splash.xml"
+  },
+  "icon": "res/logo.png",
+  "main": "robfood.js",
+  "name": "抢菜助手",
+  "optimization": {
+    "removeOpenCv": false,
+    "unusedResources": false
+  },
+  "packageName": "org.example.robfood",
+  "scripts": {},
+  "versionCode": 1,
+  "versionName": "1.0.0",
+  "ignore": ["build", "node_modules", "README", "assets", "tsconfig", "package.json", "main", "release"]
+}
