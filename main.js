@@ -37,10 +37,3 @@ const start = () => {
 	}
 }
 start()
-
-// const appName = "盒马";
-// launchApp(appName);
-// sleep(3000);
-// media.pauseMusic()
-// sleep(7000)
-// media.stopMusic()
