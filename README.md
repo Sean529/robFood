@@ -1,11 +1,14 @@
-本项目纯属学习~不要违规违法造成法律责任概不负责。
-仅支持安卓手机。
+# robFood
 
-## 使用
+## 抢菜助手
 
-1. 推荐使用 vscode 编辑器
-2. 安装 vscode 插件 Auto.js-Pro-Ext
-3. 安装项目依赖
+本项目是基于 autojs pro 实现的抢菜辅助脚本。
+
+### 运行项目
+
+1. 使用 vscode 编辑器
+2. 插件 Auto.js-Pro-Ext
+3. 项目依赖
    `npm 版本 8.1.0`
    `npm install`
 4. 手机上安装 [autojs app](https://autojspro-apk-1252460104.cos.ap-guangzhou.myqcloud.com/autojspro8.0-latest.apk)
@@ -15,5 +18,8 @@
 7. vscode 选择刚刚连接的设备进行调试
    <img src="./assets/vscode-autojs.jpeg" width="300">
 
-> 如果还有不懂的也可以加我微信，at-529，加好友时请备注：robFood
-> 如果对你有帮助请给个 **star** 支持，谢谢~~
+### 下载
+
+1. [https://github.com/sean529/robFood/blob/main/release/robFood_v1.0.0.apk](https://github.com/sean529/robFood/blob/main/release/robFood_v1.0.0.apk)
+2. 关注公众号：**一碗代码** 。回复：**抢菜助手**
+3. 微信：AT-0529，备注：抢菜助手
