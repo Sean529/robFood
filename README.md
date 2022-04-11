@@ -1,7 +1,8 @@
-# robFood
+# [robFood](https://github.com/sean529/robFood)
 
-## 抢菜助手
+## [抢菜助手](https://github.com/sean529/robFood)
 
+项目地址 [https://github.com/sean529/robFood](https://github.com/sean529/robFood)
 本项目是基于 autojs pro 实现的抢菜辅助脚本。
 
 ### 运行项目
