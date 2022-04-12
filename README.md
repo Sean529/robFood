@@ -21,6 +21,6 @@
 
 ### 下载
 
-1. [https://github.com/sean529/robFood/blob/main/release/robFood_v1.0.0.apk](https://github.com/sean529/robFood/blob/main/release/robFood_v1.0.0.apk)
+1. [https://github.com/sean529/robFood/blob/main/release](https://github.com/sean529/robFood/blob/main/release)
 2. 关注公众号：**一碗代码** 。回复：**抢菜助手**
 3. 微信：AT-0529，备注：抢菜助手
