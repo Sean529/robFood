@@ -43,8 +43,8 @@ function autoStart() {
     text(message).findOne().click()
   }
 
-  // const path = "res/大籽-白月光与朱砂痣.mp3"
-  const path = "/storage/emulated/0/脚本/at-robFood/res/大籽-白月光与朱砂痣.mp3"
+  const path = "res/大籽-白月光与朱砂痣.mp3"
+  // const path = "/storage/emulated/0/脚本/at-robFood/res/大籽-白月光与朱砂痣.mp3"
   let m = media
   function musicPlay() {
     musicStop("开始播放前>停止音乐")
