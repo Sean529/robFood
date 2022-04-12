@@ -1,3 +1,12 @@
+// 程序开始运行之前判断无障碍服务
+if (auto.service == null) {
+  toastLog("请先开启无障碍服务！")
+  sleep(1000)
+  app.startActivity({
+    action: "android.settings.ACCESSIBILITY_SETTINGS",
+  })
+}
+
 function autoStart() {
   auto.waitFor()
   const SHORT_WAIT = 200
@@ -45,6 +54,12 @@ function autoStart() {
   // 去购物车页
   function shoppingCartCase() {
     // 进入购物车页
+    if (hasText("重新加载")) {
+      idClickBtn("ll_reload_action").findOne().click()
+      sleep(2000)
+      return payment()
+    }
+    sleep(SHORT_WAIT)
     const isCartPage = !hasText("去结算") && hasText("购物车")
     if (isCartPage) {
       // 主页 -> 点击底部tabBar购物车 -> 进入购物车页
@@ -68,6 +83,50 @@ function autoStart() {
       confirmOrderCase()
     } else if (text("您选择的送达时间已经失效了，请重新选择").exists()) {
       deliveryTimeError()
+    } else if (text("选择送达时间")) {
+      musicStop()
+      if (text("今天")) {
+        const hasNow =
+          text("今天").findOnce() &&
+          text("今天").findOnce().parent() &&
+          text("今天").findOnce().parent().children() &&
+          text("今天").findOnce().parent().children().length !== 1
+        if (hasNow) {
+          // 如果有时间选择，则选择时间
+          selectTime()
+          sleep(1000)
+          payment()
+        } else {
+          if (id("iv_dialog_select_time_close").findOne()) {
+            id("iv_dialog_select_time_close").findOne().click()
+            // 已约满就返回购物车
+            back()
+            sleep(SHORT_WAIT)
+            shoppingCartCase()
+          } else {
+            back()
+            sleep(LONG_WAIT)
+            shoppingCartCase()
+          }
+        }
+      } else if (hasText("明天")) {
+        alert(222)
+        if (textStartsWith("明天").findOnce().parent().children().length) {
+          // 如果有时间选择，则选择时间
+          selectTime()
+          sleep(1000)
+          payment()
+        } else {
+          // 已约满就返回购物车
+          id("iv_dialog_select_time_close").findOne().click()
+          back()
+          sleep(SHORT_WAIT)
+          shoppingCartCase()
+        }
+      } else {
+        musicStop()
+        payment()
+      }
     } else {
       musicPlay()
       var clear = confirm("回购物车运行脚本")
@@ -80,6 +139,11 @@ function autoStart() {
   // 确认订单页逻辑
   function payment() {
     // 弹窗提示返回购物车
+    if (hasText("重新加载")) {
+      idClickBtn("ll_reload_action").findOne().click()
+      sleep(2000)
+      return payCase()
+    }
     if (hasText("返回购物车")) {
       back()
       sleep(SHORT_WAIT)
@@ -87,7 +151,9 @@ function autoStart() {
     } else if (hasText("立即支付")) {
       // 点击立即支付按钮
       idClickBtn("tv_submit") // 点击立即支付按钮
-      sleep(SHORT_WAIT)
+      if (hasText("前方拥堵")) {
+        sleep(2000)
+      }
       payCase()
       musicPlay()
     } else {
@@ -109,12 +175,18 @@ function autoStart() {
       shoppingCartCase()
     } else {
       // 如果有时间选择，则选择时间
-      selectTime()
+      payCase()
     }
   }
 
   // 点击立即支付后遇到的 case
   function payCase() {
+    sleep(2000)
+    if (hasText("重新加载")) {
+      idClickBtn("ll_reload_action").findOne().click()
+      sleep(2000)
+      return payCase()
+    }
     if (text("您选择的送达时间已经失效了，请重新选择").exists()) {
       deliveryTimeError()
     } else if (hasText("返回购物车")) {
@@ -124,22 +196,32 @@ function autoStart() {
       shoppingCartCase()
     } else if (text("选择送达时间")) {
       musicStop()
-      if (hasText("今天")) {
-        const full = text("今天").findOnce().parent().children().length
-        if (full !== 1) {
+      if (text("今天")) {
+        const hasNow =
+          text("今天").findOnce() &&
+          text("今天").findOnce().parent() &&
+          text("今天").findOnce().parent().children() &&
+          text("今天").findOnce().parent().children().length !== 1
+        if (hasNow) {
           // 如果有时间选择，则选择时间
           selectTime()
           sleep(1000)
           payment()
         } else {
-          // 已约满就返回购物车
-          id("iv_dialog_select_time_close").findOne().click()
-          // back()
-          back()
-          sleep(SHORT_WAIT)
-          shoppingCartCase()
+          if (id("iv_dialog_select_time_close").findOne()) {
+            id("iv_dialog_select_time_close").findOne().click()
+            // 已约满就返回购物车
+            back()
+            sleep(SHORT_WAIT)
+            shoppingCartCase()
+          } else {
+            back()
+            sleep(LONG_WAIT)
+            shoppingCartCase()
+          }
         }
-      } if (hasText("明天")) {
+      } else if (hasText("明天")) {
+        alert(222)
         if (textStartsWith("明天").findOnce().parent().children().length) {
           // 如果有时间选择，则选择时间
           selectTime()
@@ -148,7 +230,6 @@ function autoStart() {
         } else {
           // 已约满就返回购物车
           id("iv_dialog_select_time_close").findOne().click()
-          // back()
           back()
           sleep(SHORT_WAIT)
           shoppingCartCase()
@@ -195,8 +276,10 @@ function autoStart() {
     }
   }
   if (hasText("去结算")) {
+    waitForPackage("com.yaya.zone", SHORT_WAIT)
     confirmOrderCase()
   } else {
+    waitForPackage("com.yaya.zone", SHORT_WAIT)
     shoppingCartCase()
   }
 }

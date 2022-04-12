@@ -11,7 +11,7 @@
     "splashLayoutXml": "splash.xml"
   },
   "icon": "res/logo.png",
-  "main": "robfood.js",
+  "main": "execute.js",
   "name": "抢菜助手",
   "optimization": {
     "removeOpenCv": false,
