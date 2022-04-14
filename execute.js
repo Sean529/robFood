@@ -230,9 +230,10 @@ function autoStart() {
       sleep(2000)
       return payCase()
     }
-    if (text("您选择的送达时间已经失效了，请重新选择").exists()) {
+    if (hasText("您选择的送达时间已经失效了，请重新选择").exists()) {
       musicStop("您选择的送达时间已经失效了，请重新选择>停止音乐")
-      deliveryTimeError()
+      textClickBtn('选择送达时间')
+      payment()
     } else if (hasText("返回购物车")) {
       musicStop("返回购物车>停止音乐")
       text("返回购物车").findOnce().click()
