@@ -43,8 +43,8 @@ function autoStart() {
     text(message).findOne().click()
   }
 
-  const path = "res/大籽-白月光与朱砂痣.mp3"
-  // const path = "/storage/emulated/0/脚本/at-robFood/res/大籽-白月光与朱砂痣.mp3"
+  // const path = "res/大籽-白月光与朱砂痣.mp3"
+  const path = "/storage/emulated/0/脚本/at-robFood/res/大籽-白月光与朱砂痣.mp3"
   let m = media
   function musicPlay() {
     musicStop("开始播放前>停止音乐")
@@ -83,8 +83,10 @@ function autoStart() {
 
   // 去购物车页
   function shoppingCartCase() {
+    toastLog("shopping")
     // 进入购物车页
     if (hasText("重新加载")) {
+      toastLog("重新加载")
       idClickBtn("ll_reload_action").findOne().click()
       sleep(2000)
       return payment()
@@ -92,28 +94,35 @@ function autoStart() {
     sleep(SHORT_WAIT)
     const isCartPage = !hasText("去结算") && hasText("购物车")
     if (isCartPage) {
+      toastLog("主页>进入购物车")
       // 主页 -> 点击底部tabBar购物车 -> 进入购物车页
       idClickBtn("rl_car_layout")
       sleep(SHORT_WAIT)
       confirmOrderCase()
     } else if (idExists("iv_cart")) {
+      toastLog("分类>进入购物车")
       // 分类-> 商品详情 -> 点击底部小购物车图标 -> 购物车页面
       idClickBtn("iv_cart")
       sleep(SHORT_WAIT)
       confirmOrderCase()
     } else if (id("iv_cart1").exists()) {
+      toastLog("吃什么>进入购物车")
       // 吃什么-> 商品详情 -> 点击顶部小购物车图标 -> 购物车页面
       idClickBtn("iv_cart1")
       sleep(SHORT_WAIT)
       confirmOrderCase()
     } else if (hasText("立即支付")) {
+      toastLog(">立即支付")
       // 如果在确认订单页则走payment逻辑
       payment()
     } else if (hasText("去结算")) {
+      toastLog(">去结算")
       confirmOrderCase()
     } else if (text("您选择的送达时间已经失效了，请重新选择").exists()) {
+      toastLog(">时间失效")
       deliveryTimeError()
     } else if (text("选择送达时间")) {
+      toastLog(">选择送达时间")
       if (text("今天")) {
         const hasNow =
           text("今天").findOnce() &&
@@ -129,6 +138,7 @@ function autoStart() {
         } else {
           musicStop("选择送达时间2>停止音乐")
           if (id("iv_dialog_select_time_close").findOne()) {
+            musicStop("选择送达时间关闭选择框回购物车>停止音乐")
             id("iv_dialog_select_time_close").findOne().click()
             // 已约满就返回购物车
             back()
@@ -173,27 +183,33 @@ function autoStart() {
   function payment() {
     // 弹窗提示返回购物车
     if (hasText("重新加载")) {
+      toastLog(">重新加载")
       idClickBtn("ll_reload_action").findOne().click()
       sleep(2000)
       return payCase()
     }
     if (hasText("继续结算")) {
+      toastLog(">继续结算")
       textClickBtn("继续结算")
       return payment()
     }
     if (hasText("返回购物车")) {
+      toastLog(">返回购物车")
       back()
       sleep(SHORT_WAIT)
       shoppingCartCase()
     } else if (hasText("立即支付")) {
+      toastLog(">立即支付1")
       // 点击立即支付按钮
       idClickBtn("tv_submit") // 点击立即支付按钮
       if (hasText("前方拥堵")) {
+        toastLog(">前方拥堵")
         sleep(2000)
       }
       musicPlay()
       payCase()
     } else {
+      toastLog(">>走购物车流程")
       shoppingCartCase()
     }
   }
@@ -218,28 +234,46 @@ function autoStart() {
 
   // 点击立即支付后遇到的 case
   function payCase() {
+    toastLog(">>payCase")
     sleep(2000)
-    if (hasText('继续支付')) {
-      textClickBtn('继续支付')
+    if (hasText("继续支付")) {
+      toastLog(">>继续支付")
+      textClickBtn("继续支付")
       sleep(SHORT_WAIT)
       return payment()
     }
     if (hasText("重新加载")) {
+      toastLog(">>重新加载")
       musicStop("重新加载>停止音乐")
       idClickBtn("ll_reload_action").findOne().click()
       sleep(2000)
       return payCase()
     }
+    if (hasText("立即支付")) {
+      toastLog(">>立即支付1")
+      // 点击立即支付按钮
+      idClickBtn("tv_submit") // 点击立即支付按钮
+      if (hasText("前方拥堵")) {
+        toastLog(">>前方拥堵")
+        sleep(2000)
+      }
+      musicPlay()
+      payCase()
+      return
+    }
     if (text("您选择的送达时间已经失效了，请重新选择").exists()) {
+      toastLog(">>重新选择")
       musicStop("您选择的送达时间已经失效了，请重新选择>停止音乐")
-      textClickBtn('选择送达时间')
+      textClickBtn("选择送达时间")
       payment()
     } else if (hasText("返回购物车")) {
+      toastLog(">>返回购物车")
       musicStop("返回购物车>停止音乐")
       text("返回购物车").findOnce().click()
       sleep(SHORT_WAIT)
       shoppingCartCase()
     } else if (text("选择送达时间")) {
+      toastLog(">>选择送达时间")
       if (text("今天")) {
         const hasNow =
           text("今天").findOnce() &&
@@ -285,6 +319,8 @@ function autoStart() {
         payment()
       }
     } else {
+      toastLog(">>else")
+      alert("1231243")
       musicPlay()
     }
   }
