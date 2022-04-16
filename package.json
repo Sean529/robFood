@@ -1,0 +1,15 @@
+{
+  "name": "rob-food",
+  "version": "1.0.0",
+  "description": "",
+  "main": "robFood.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@autojs/types-pro9": "^9.0.0"
+  }
+}
