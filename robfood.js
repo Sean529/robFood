@@ -6,7 +6,7 @@ if (!files.exists(path)) {
 
 // 程序开始运行之前判断无障碍服务
 if (auto.service == null) {
-  toastLog("请先开启无障碍服务！")
+  toast("请先开启无障碍服务！")
   sleep(1000)
   app.startActivity({
     action: "android.settings.ACCESSIBILITY_SETTINGS",

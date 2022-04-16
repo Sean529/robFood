@@ -1,5 +1,5 @@
 {
-  "name": "my-project",
+  "name": "rob-food",
   "version": "1.0.0",
   "description": "",
   "main": "robFood.js",
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@autojs/types-pro8": "^8.8.0"
+    "@autojs/types-pro9": "^9.0.0"
   }
 }

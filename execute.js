@@ -1,6 +1,6 @@
 // 程序开始运行之前判断无障碍服务
 if (auto.service == null) {
-  toastLog("请先开启无障碍服务！")
+  toast("请先开启无障碍服务！")
   sleep(1000)
   app.startActivity({
     action: "android.settings.ACCESSIBILITY_SETTINGS",
@@ -17,7 +17,6 @@ function ABwaitForActivity(activity, timeout, period) {
   }
   return true
 }
-
 function ABwaitForPackage(packageName, timeout, period) {
   period = period || 200
   var time = new Date().getTime()
@@ -35,16 +34,16 @@ function autoStart() {
   const LONG_WAIT = 2000
   const appName = "叮咚买菜"
   launchApp(appName)
-  toastLog("开始了等2s")
+  toast("开始了等2s")
   sleep(LONG_WAIT)
-  toastLog("到了2s")
+  toast("到了2s")
 
   function textClickBtn(message) {
     text(message).findOne().click()
   }
 
-  // const path = "res/大籽-白月光与朱砂痣.mp3"
-  const path = "/storage/emulated/0/脚本/at-robFood/res/大籽-白月光与朱砂痣.mp3"
+  const path = "res/大籽-白月光与朱砂痣.mp3"
+  // const path = "/storage/emulated/0/脚本/at-robFood/res/大籽-白月光与朱砂痣.mp3"
   let m = media
   function musicPlay() {
     musicStop("开始播放前>停止音乐")
@@ -52,12 +51,12 @@ function autoStart() {
     function mySleep(ms) {
       return new Promise((resolve) => setTimeout(resolve, ms))
     }
-    toastLog("开始播放音乐")
+    toast("开始播放音乐")
     mySleep(m.getMusicDuration())
   }
 
   function musicStop(message) {
-    toastLog(message)
+    toast(message)
     m.stopMusic()
   }
 
@@ -83,10 +82,10 @@ function autoStart() {
 
   // 去购物车页
   function shoppingCartCase() {
-    toastLog("shopping")
+    toast("shopping")
     // 进入购物车页
     if (hasText("重新加载")) {
-      toastLog("重新加载")
+      toast("重新加载")
       idClickBtn("ll_reload_action").findOne().click()
       sleep(2000)
       return payment()
@@ -94,35 +93,35 @@ function autoStart() {
     sleep(SHORT_WAIT)
     const isCartPage = !hasText("去结算") && hasText("购物车")
     if (isCartPage) {
-      toastLog("主页>进入购物车")
+      toast("主页>进入购物车")
       // 主页 -> 点击底部tabBar购物车 -> 进入购物车页
       idClickBtn("rl_car_layout")
       sleep(SHORT_WAIT)
       confirmOrderCase()
     } else if (idExists("iv_cart")) {
-      toastLog("分类>进入购物车")
+      toast("分类>进入购物车")
       // 分类-> 商品详情 -> 点击底部小购物车图标 -> 购物车页面
       idClickBtn("iv_cart")
       sleep(SHORT_WAIT)
       confirmOrderCase()
     } else if (id("iv_cart1").exists()) {
-      toastLog("吃什么>进入购物车")
+      toast("吃什么>进入购物车")
       // 吃什么-> 商品详情 -> 点击顶部小购物车图标 -> 购物车页面
       idClickBtn("iv_cart1")
       sleep(SHORT_WAIT)
       confirmOrderCase()
     } else if (hasText("立即支付")) {
-      toastLog(">立即支付")
+      toast(">立即支付")
       // 如果在确认订单页则走payment逻辑
       payment()
     } else if (hasText("去结算")) {
-      toastLog(">去结算")
+      toast(">去结算")
       confirmOrderCase()
     } else if (text("您选择的送达时间已经失效了，请重新选择").exists()) {
-      toastLog(">时间失效")
+      toast(">时间失效")
       deliveryTimeError()
     } else if (text("选择送达时间")) {
-      toastLog(">选择送达时间")
+      toast(">选择送达时间")
       if (text("今天")) {
         const hasNow =
           text("今天").findOnce() &&
@@ -183,33 +182,33 @@ function autoStart() {
   function payment() {
     // 弹窗提示返回购物车
     if (hasText("重新加载")) {
-      toastLog(">重新加载")
+      toast(">重新加载")
       idClickBtn("ll_reload_action").findOne().click()
       sleep(2000)
       return payCase()
     }
     if (hasText("继续结算")) {
-      toastLog(">继续结算")
+      toast(">继续结算")
       textClickBtn("继续结算")
       return payment()
     }
     if (hasText("返回购物车")) {
-      toastLog(">返回购物车")
+      toast(">返回购物车")
       back()
       sleep(SHORT_WAIT)
       shoppingCartCase()
     } else if (hasText("立即支付")) {
-      toastLog(">立即支付1")
+      toast(">立即支付1")
       // 点击立即支付按钮
       idClickBtn("tv_submit") // 点击立即支付按钮
       if (hasText("前方拥堵")) {
-        toastLog(">前方拥堵")
+        toast(">前方拥堵")
         sleep(2000)
       }
       musicPlay()
       payCase()
     } else {
-      toastLog(">>走购物车流程")
+      toast(">>走购物车流程")
       shoppingCartCase()
     }
   }
@@ -234,27 +233,27 @@ function autoStart() {
 
   // 点击立即支付后遇到的 case
   function payCase() {
-    toastLog(">>payCase")
+    toast(">>payCase")
     sleep(2000)
     if (hasText("继续支付")) {
-      toastLog(">>继续支付")
+      toast(">>继续支付")
       textClickBtn("继续支付")
       sleep(SHORT_WAIT)
       return payment()
     }
     if (hasText("重新加载")) {
-      toastLog(">>重新加载")
+      toast(">>重新加载")
       musicStop("重新加载>停止音乐")
       idClickBtn("ll_reload_action").findOne().click()
       sleep(2000)
       return payCase()
     }
     if (hasText("立即支付")) {
-      toastLog(">>立即支付1")
+      toast(">>立即支付1")
       // 点击立即支付按钮
       idClickBtn("tv_submit") // 点击立即支付按钮
       if (hasText("前方拥堵")) {
-        toastLog(">>前方拥堵")
+        toast(">>前方拥堵")
         sleep(2000)
       }
       musicPlay()
@@ -262,18 +261,18 @@ function autoStart() {
       return
     }
     if (text("您选择的送达时间已经失效了，请重新选择").exists()) {
-      toastLog(">>重新选择")
+      toast(">>重新选择")
       musicStop("您选择的送达时间已经失效了，请重新选择>停止音乐")
       textClickBtn("选择送达时间")
       payment()
     } else if (hasText("返回购物车")) {
-      toastLog(">>返回购物车")
+      toast(">>返回购物车")
       musicStop("返回购物车>停止音乐")
       text("返回购物车").findOnce().click()
       sleep(SHORT_WAIT)
       shoppingCartCase()
     } else if (text("选择送达时间")) {
-      toastLog(">>选择送达时间")
+      toast(">>选择送达时间")
       if (text("今天")) {
         const hasNow =
           text("今天").findOnce() &&
@@ -319,7 +318,7 @@ function autoStart() {
         payment()
       }
     } else {
-      toastLog(">>else")
+      toast(">>else")
       alert("1231243")
       musicPlay()
     }
@@ -342,6 +341,9 @@ function autoStart() {
     // 已勾选的按钮会带数字，所以通过按钮文本来判断购物车中的商品是否失效，如果没有勾选，则无法进入确认订单页面。
     const toSettleAccounts_btn = text("去结算").exists()
     if (toSettleAccounts_btn) {
+      swipe(200, 590, 200, 1160, 1) // x1,y1,x2,y2,duration
+      toast('下拉刷新购物车，等3s')
+      sleep(3000)
       id("vg_car")
         .findOne()
         .children()
@@ -361,14 +363,14 @@ function autoStart() {
   }
 
   if (hasText("去结算")) {
-    toastLog("等结算流程")
+    toast("等结算流程")
     ABwaitForActivity("com.yaya.zone", SHORT_WAIT)
-    toastLog("开始结算流程")
+    toast("开始结算流程")
     confirmOrderCase()
   } else {
-    toastLog("等确认订单流程")
+    toast("等确认订单流程")
     ABwaitForActivity("com.yaya.zone", SHORT_WAIT)
-    toastLog("开始确认订单流程")
+    toast("开始确认订单流程")
     shoppingCartCase()
   }
 }
