@@ -1,5 +1,7 @@
 # [robFood](https://github.com/sean529/robFood)
 
+**Disclamer:** This repository as well as materials within the repository does not contain any element of "violence" or "robbing". The title, "rob" is an exaggeration of buying food faster compare to others through utillizing the software/code in the repository.  
+
 ## [抢菜助手](https://github.com/sean529/robFood)
 本项目仅用于学习，严禁用于非法或商用，如有侵权请联系本人删除！
 
